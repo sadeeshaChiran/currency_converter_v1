@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   double amount = 0.0;
   double convertedAmount = 0.0;
+  String convertedAmountString = "0.00";
   bool isLoadingCurrency = false;
   bool isLoadingPage = false;
 
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> {
       } else if (isLkrToCad) {
         convertedAmount = amount * lkrToCadRate;
       }
+      convertedAmountString = convertedAmount.toStringAsFixed(2);
     } else {
       // Handle error
       print('Failed to load exchange rates');
@@ -162,13 +164,13 @@ class _HomePageState extends State<HomePage> {
                                         if (isCadToLkr) {
                                           from = "LKR";
                                           to = "CAD";
-                                          convertedAmount = 0.0;
+                                          convertedAmountString = '0.00';
                                           isLkrToCad = true;
                                           isCadToLkr = false;
                                         } else if (isLkrToCad) {
                                           from = "CAD";
                                           to = "LKR";
-                                          convertedAmount = 0.0;
+                                          convertedAmountString = "0.00";
                                           isLkrToCad = false;
                                           isCadToLkr = true;
                                         }
@@ -229,9 +231,9 @@ class _HomePageState extends State<HomePage> {
                                           child: Align(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
-                                              '$convertedAmount',
+                                              convertedAmountString,
                                               style: const TextStyle(
-                                                  color: Colors.black),
+                                                  color: Colors.black, fontSize: 25.0, fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ),
